@@ -1,2 +1,3 @@
 /storage
 /docker-files/nginx/certs
+.env
