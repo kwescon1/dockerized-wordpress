@@ -26,7 +26,7 @@ Ensure `mkcert` is installed for generating locally-trusted certificates. If not
 Once installed, while in the project root directory:
 
 ```bash
-mkdir -p nginx/certs && cd nginx/certs
+mkdir -p docker-files/nginx/certs && cd docker-files/nginx/certs
 mkcert localhost
 ```
 
