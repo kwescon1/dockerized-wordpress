@@ -2,46 +2,55 @@
 
 Easily set up a local development environment for WordPress with Docker, leveraging Nginx, MySQL, and HTTPS support.
 
-## **Prerequisites**
+## Prerequisites
 
 - Docker
 - Docker-compose
 - [mkcert](https://github.com/FiloSottile/mkcert) (For HTTPS support)
 
-## **Setup Steps**
+## Setup Steps
 
-### 1. **Clone the Project**
+### 1. Clone the Project
 
 ```bash
 git clone [repo_url] [optional_directory_name]
 cd [directory_name_or_optional_directory_name]
 ```
 
-### 2. **Install & Configure `mkcert`**
+### 2. Make Entrypoint Script Executable
 
-Ensure `mkcert` is installed for generating locally-trusted certificates. If not:
+Before proceeding, ensure the `entrypoint.sh` script is executable:
+
+```bash
+chmod +x docker-files/php/entrypoint.sh
+```
+
+### 3. Install & Configure `mkcert`
+
+If `mkcert` isn't installed, it's essential for generating locally-trusted certificates:
 
 - [Install mkcert](https://github.com/FiloSottile/mkcert)
 
-Once installed, while in the project root directory:
+Once installed, generate certificates for Nginx to enable HTTPS:
 
 ```bash
 mkdir -p docker-files/nginx/certs && cd docker-files/nginx/certs
 mkcert localhost
 ```
 
-This generates `localhost.pem` and `localhost-key.pem` for Nginx, enabling HTTPS.
+This process results in the creation of `localhost.pem` and `localhost-key.pem`.
 
-### 3. **Setup Configuration File**
+### 4. Setup Configuration File
+
+From the project root directory:
 
 ```bash
-cd [project_root_directory]
 cp .env.example .env
 ```
 
-### 4. **Modify Configuration**
+### 5. Modify Configuration
 
-Edit the `.env` file and set:
+Edit the `.env` file to configure your database:
 
 ```dotenv
 DB_DATABASE=your_db_name
@@ -49,29 +58,28 @@ DB_USERNAME=your_db_username
 DB_PASSWORD=your_db_password
 ```
 
-### 5. **Build and Start Containers**
+### 6. Build and Start Containers
 
-First, build the containers:
+Firstly, build the containers:
 
 ```bash
 docker-compose build --no-cache
 ```
 
-Then, start the services:
+Subsequently, initiate the services:
 
 ```bash
 docker-compose up -d
 ```
 
-### 6. **Access Your WordPress Site**
+### 7. Access Your WordPress Site
 
 - **Secure Connection (HTTPS)**: [https://localhost:7010](https://localhost:7010)
-
 - **Regular Connection (HTTP)**: [http://localhost:7009](http://localhost:7009)
 
-## **Database Management**
+## Database Management
 
-Use Adminer at [DB Management Interface](http://localhost:7011) with:
+For database management, utilize Adminer available at [DB Management Interface](http://localhost:7011) and log in with:
 
 - System: MySQL
 - Server: mysql
@@ -79,20 +87,20 @@ Use Adminer at [DB Management Interface](http://localhost:7011) with:
 - Password: `your_db_password`
 - Database: `your_db_name`
 
-## **Useful Commands**
+## Useful Commands
 
-- **Start**: `docker-compose up -d`
-- **Stop**: `docker-compose down`
-- **Logs**: `docker-compose logs` (Add service name for specific logs, e.g., `docker-compose logs php`)
+- **Start Services**: `docker-compose up -d`
+- **Stop Services**: `docker-compose down`
+- **Check Logs**: `docker-compose logs` (For specific logs, append service name, e.g., `docker-compose logs php`)
 
-## **Troubleshooting**
+## Troubleshooting
 
-For issues, refer to the logs via `docker-compose logs`. Ensure that ports in the `.env` and `docker-compose.yml` are available on your machine.
+If problems arise, examine the logs through `docker-compose logs`. Additionally, verify that the ports detailed in the `.env` and `docker-compose.yml` files are available on your machine.
 
-## **Contributing**
+## Contributing
 
-Contributions are welcome! Fork this repository and submit pull requests.
+Contributions are greatly appreciated! Please fork this repository and offer pull requests.
 
-## **License**
+## License
 
-This project uses the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
