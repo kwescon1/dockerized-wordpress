@@ -21,6 +21,11 @@ if [ ! -f "$CONFIG_FILE" ]; then
         sed -i "s/'password_here'/getenv('WORDPRESS_DB_PASSWORD')/g" $CONFIG_FILE
         sed -i "s/'localhost'/getenv('WORDPRESS_DB_HOST')/g" $CONFIG_FILE
 
+        # Add define('FS_METHOD', 'direct'); between the specified comments
+        sed -i "/\/\* Add any custom values between this line and the \"stop editing\" line. \*\//a \
+        define('FS_METHOD', 'direct');\
+        " $CONFIG_FILE
+
         echo "$CONFIG_FILE has been updated"
     fi
 else
