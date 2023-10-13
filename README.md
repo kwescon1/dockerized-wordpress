@@ -103,4 +103,4 @@ Contributions are greatly appreciated! Please fork this repository and offer pul
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE.txt).
